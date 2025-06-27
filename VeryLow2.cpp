@@ -7,7 +7,7 @@
 #include <ctime>
 #include <windows.h>
 #include "hashPD.h"
-#define i_input _color(10);cout<<'>';_color(7);
+#define i_input _color(14);cout<<'>';_color();
 #define ptf printf
 #define ent ptf("\n");
 
@@ -105,7 +105,7 @@ int main()
 		abc.close();
 	}
 	
-	system("title VeryLow 密钥制作 v2.0");
+	SetConsoleTitle("VeryLow 密钥制作 v2.0");
 	
 //	string infoo = "";
 	_color(12);
