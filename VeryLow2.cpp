@@ -7,9 +7,10 @@
 #include <ctime>
 #include <windows.h>
 #include "hashPD.h"
-#define i_input _color(14);cout<<'>';_color();
+#include "hashPDtext.h"
 #define ptf printf
 #define ent ptf("\n");
+#define i_input _color(14);printf(">");_color();
 
 using namespace std;
 
@@ -45,7 +46,7 @@ int rando(int a,int b)
 
 bool isStoPressed()
 {
-	return (GetAsyncKeyState(VK_ESCAPE) & 0x8000);
+	return (GetAsyncKeyState(VK_F5) & 0x8000);
 }
 
 string getCurrentTimeString() 
@@ -105,7 +106,7 @@ int main()
 		abc.close();
 	}
 	
-	SetConsoleTitle("VeryLow 密钥制作 v2.0");
+	SetConsoleTitle("VeryLow 密钥制作 v2.2");
 	
 //	string infoo = "";
 	_color(12);
@@ -117,7 +118,7 @@ int main()
 		_color();
 		ptf(",\n");
 		_color(10);
-		ptf("欢迎来到 VeryLow v2.0");ent
+		ptf("欢迎来到 VeryLow v2.2");ent
 		ptf("by IQ Online Studio, github.com/iqonli;\nVeryLow means 这玩意不能跑GPU加速, 甚至跑不满CPU, 实在非常Low.");
 		_color();
 		ent
@@ -346,7 +347,7 @@ int main()
 			
 			ent
 			_color(176);
-			ptf("随时可按esc终止");
+			ptf("随时可按F5终止,切换窗口按此键仍然生效");
 			_color();
 			ent ent
 			
@@ -380,7 +381,7 @@ int main()
 						strnhash.str=result;
 						strnhash.hash=hashx;
 						finded.push_back(strnhash);
-						cout<<"\r"<<d<<"	| 找到"<<finded.size()<<"个符合条件的密钥;\n";
+						cout<<"\r"<<d<<"	| 找到"<<finded.size()<<"个符合条件的密钥,size="<<result.size()<<",hash="<<hashx<<"\n";
 					}
 				}
 				cout<<"\n"<<d<<"' 下面是所有已找到的密钥\n";
@@ -424,6 +425,7 @@ int main()
 					_color();
 					ent
 				}
+				ptf("提示:文件_前的数为密钥长度,_后的数为防止文件重复的随机数。");ent
 			}
 		}
 		if(x==4 or x==5)
@@ -454,7 +456,15 @@ int main()
 				_color();
 				ent
 				do{i_input getline(cin,xx);}while(xx=="" or xx=="\n");
-				string hashx=PD_hash(xx, false, alg);
+				string hashx;
+				if(hashs=="2" or hashs=="sha256")
+				{
+					hashx=PD_hash_sha256_text(xx);
+				}
+				else
+				{
+					hashx=PD_hash(xx, false, alg);
+				}
 				ptf("\n================");ent
 				cout<<"len="<<hashx.size()<<endl;
 				_color(176);
